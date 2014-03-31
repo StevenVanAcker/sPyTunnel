@@ -28,7 +28,8 @@ def connectBackend(): #{{{
 	    keyfile=globConfig["key"], 
 	    certfile=globConfig["cert"],
 	    ca_certs=globConfig["cacert"], 
-	    cert_reqs=ssl.CERT_REQUIRED)
+	    cert_reqs=ssl.CERT_REQUIRED,
+	    ssl_version=ssl.PROTOCOL_TLSv1)
 
     outsock.connect((globConfig["remotehost"], globConfig["remoteport"]))
     return outsock
@@ -112,7 +113,7 @@ def parseOpts(): #{{{
     parser.add_argument("-k", "--key", help="private key for this endpoint", required=False)
     parser.add_argument("-c", "--cert", help="certificate for this endpoint", required=False)
     parser.add_argument("--cacert", help="CA certificate to authenticate the other side against", required=False)
-    parser.add_argument("--server", help="indicates this side is the server endpoint")
+    parser.add_argument("--server", action="store_true", help="indicates this side is the server endpoint")
     args = parser.parse_args()
 
     if args.local:

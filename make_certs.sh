@@ -1,18 +1,12 @@
 #!/bin/bash
 
 function makeKeyAndCSR() {
-    countryCode=SE
-    state=Gota
-    city=Gothenburg
-    company=OverTheWire
-    organizationalUnitName=warzone
-    email=admin@overthewire.org
     fnprefix="$1"
     bits=$2
-    domain="$3"
+    cn="$3"
 
     openssl req -nodes -newkey rsa:$bits -keyout "$fnprefix.key" -out "$fnprefix.csr" \
-	-batch -subj "/C=$countryCode/ST=$state/L=$city/O=$company/OU=$organizationalUnitName/CN=$domain/emailAddress=$email"
+	-batch -subj "/CN=$cn"
 }
 
 makeKeyAndCSR "ca"		4096 "test-ca"
